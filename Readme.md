@@ -26,17 +26,19 @@
 
 1. 编译
 
-    ```
-    E:\codeRoom\java\javabase\proj3>javac com/sum/*.java`
-    ```
+```
+E:\codeRoom\java\javabase\proj3>javac com/sum/*.java`
+```
+
 2. 运行
 
-    ```
-    E:\codeRoom\java\javabase\proj3>java com.sum.App
-    Hello world! 8
+```
+E:\codeRoom\java\javabase\proj3>java com.sum.App
+Hello world! 8
 
-    ```
+```
     `
+
 ## Proj3
 
 3. 加入了包的概念
@@ -57,18 +59,19 @@ Created-By: 14.0.2 (Oracle Corporation)
 
    在未出现模块的概念时候使用cvfm，而在出现模块概念的时候使用 jar --create --file的方式。
    
-    ```
-    E:\codeRoom\java\javabase\proj3>jar cvfm hello.jar manifest.mf com/sum/App.class
-    已添加清单
-    正在添加: com/sum/App.class(输入 = 610) (输出 = 407)(压缩了 33%)
+```
+E:\codeRoom\java\javabase\proj3>jar cvfm hello.jar manifest.mf com/sum/App.class
+已添加清单
+正在添加: com/sum/App.class(输入 = 610) (输出 = 407)(压缩了 33%)
 
-    ```
+```
 
   4.3 运行jar包
-    ```
-    E:\codeRoom\java\javabase\proj3>java -jar hello.jar
-    Hello world! 8
-    ```
+
+```
+E:\codeRoom\java\javabase\proj3>java -jar hello.jar
+Hello world! 8
+```
 
 ## Proj4
 
@@ -80,19 +83,19 @@ Created-By: 14.0.2 (Oracle Corporation)
 
   5.1 编译
 
-    ```
-    E:\codeRoom\java\javabase\proj4>javac -d targets/ModuleNameMain ModuleNameMain/module-info.java ModuleNameMain/com/sum/*.java
+```
+E:\codeRoom\java\javabase\proj4>javac -d targets/ModuleNameMain ModuleNameMain/module-info.java ModuleNameMain/com/sum/*.java
 
-    ```
+```
 
 - `-d`表示产生的targets文件夹 包含ModuleNameMain
 
   5.2 运行
 
-    ```
-    E:\codeRoom\java\javabase\proj4>java --module-path targets -m ModuleNameMain/com.sum.App
-    Hello world! 8
-    ```
+```
+E:\codeRoom\java\javabase\proj4>java --module-path targets -m ModuleNameMain/com.sum.App
+Hello world! 8
+```
 
 注意包的路径之间用点号， 模块和包用路径名字划分开, 注意模块也是可以使`java.base , javafx.scene` 以点号结合的形式。
 
@@ -104,18 +107,18 @@ Created-By: 14.0.2 (Oracle Corporation)
 使用单行命令
 为什么要在末尾增加一个点号，代表当前目录所有文件?
 
-    ```
-    E:\codeRoom\java\javabase\proj4>jar --create --file lib/ModuleNameMain.jar --main-class com.sum.App -C targets/ModuleNameMain .
-    ```
+```
+E:\codeRoom\java\javabase\proj4>jar --create --file lib/ModuleNameMain.jar --main-class com.sum.App -C targets/ModuleNameMain .
+```
 
 注意了targets后面得加上模块名字，否则运行时候报错！
 
   5.4 运行打包后的模块
 
-    ```
-    E:\codeRoom\java\javabase\proj4>java -p lib -m ModuleNameMain
-    Hello world! 8
-    ```
+```
+E:\codeRoom\java\javabase\proj4>java -p lib -m ModuleNameMain
+Hello world! 8
+```
 
 注意 `-p`表示的模块jar包的输出路径
 
@@ -125,10 +128,10 @@ Created-By: 14.0.2 (Oracle Corporation)
 
 同`jar --create --file`的形式有所不一样
 
-    ```
-    E:\codeRoom\java\javabase\proj4>jmod create --class-path lib/ModuleNameMain.jar ModuleNameMain.jmod
+```
+E:\codeRoom\java\javabase\proj4>jmod create --class-path lib/ModuleNameMain.jar ModuleNameMain.jmod
 
-    ```
+```
 
   5.5.2 创建JRE文件夹
 
@@ -137,16 +140,16 @@ jlink --module-path jmodfile(上个命令生成的jmod文件存放的文件夹) 
 
 `java.base`是默认会增加的模块名字。
 
-    ```
-    E:\codeRoom\java\javabase\proj4>jlink --module-path . --add-modules ModuleNameMain,java.base --output myAppOne
-    ```
+```
+E:\codeRoom\java\javabase\proj4>jlink --module-path . --add-modules ModuleNameMain,java.base --output myAppOne
+```
 
 会生成一个JRE文件夹，里头的java.exe就包含这新的模块信息了
 
-    ```
-    E:\codeRoom\java\javabase\proj4\myAppOne\bin>java -m ModuleNameMain
-    Hello world! 8
-    ```
+```
+E:\codeRoom\java\javabase\proj4\myAppOne\bin>java -m ModuleNameMain
+Hello world! 8
+```
 
 ## proj5
 
@@ -155,6 +158,7 @@ jlink --module-path jmodfile(上个命令生成的jmod文件存放的文件夹) 
   6.1 `ModuleNameAdd module-info.java`加入`exports`
   6.2 `ModuleNameMain module-info.java`加入`requires`
   6.3 编译ModuleNameAdd模块 
+
 ```
     E:\codeRoom\java\javabase\proj5>javac -d targets/ModuleNameAdd ModuleNameAdd/module-info.java ModuleNameAdd/com/qny/*.java
     
@@ -172,10 +176,11 @@ jlink --module-path jmodfile(上个命令生成的jmod文件存放的文件夹) 
   6.5 运行多模块的主程序
 
 <2020-10-27 17:32> 有效！多模块编程的时候只需要运行主程序jar即可。
-    ```
-    E:\codeRoom\java\javabase\proj5>java --module-path targets -m ModuleNameMain/com.sum.App
-    Hello world! 8
-    ```
+
+```
+E:\codeRoom\java\javabase\proj5>java --module-path targets -m ModuleNameMain/com.sum.App
+Hello world! 8
+```
 
   6.6 制作jmod文件(可以直接运行module)
 
@@ -186,7 +191,6 @@ jlink --module-path jmodfile(上个命令生成的jmod文件存放的文件夹) 
 为什么要在jar末尾增加点号?
 
 ```
-
 E:\codeRoom\java\javabase\proj5>jar --create --file targets/jars/ModuleNameAdd.jar -C targets/ModuleNameAdd .
 
 E:\codeRoom\java\javabase\proj5>jar --create --file targets/jars/ModuleNameMain.jar -C targets/ModuleNameMain .
@@ -201,10 +205,11 @@ com/qny/Mytool.class
 ```
 
 补充：
-    ```
-    E:\codeRoom\java\javabase\proj5\MyApp\bin>java -m ModuleNameMain
-    模块 ModuleNameMain 不具有 ModuleMainClass 属性，请使用 -m <模块>/<主类>
-    ```
+
+```
+E:\codeRoom\java\javabase\proj5\MyApp\bin>java -m ModuleNameMain
+模块 ModuleNameMain 不具有 ModuleMainClass 属性，请使用 -m <模块>/<主类>
+```
     
 如果想要能够直接使用ModuleNameMain,那么必须在`jar --create-file`阶段使用`--main-class`开关项    
 
@@ -234,16 +239,16 @@ E:\codeRoom\java\javabase\proj5\targets\jars>jmod create  --class-path ModuleNam
 
 `java.base`是默认会增加的模块名字。
 
-    ```
-    E:\codeRoom\java\javabase\proj4>jlink --module-path . --add-modules ModuleNameMain,java.base --output myAppOne
-    ```
+```
+E:\codeRoom\java\javabase\proj4>jlink --module-path . --add-modules ModuleNameMain,java.base --output myAppOne
+```
 
 - 会生成一个JRE文件夹，里头的java.exe就包含这新的模块信息了
 
-    ```
-    E:\codeRoom\java\javabase\proj4\myAppOne\bin>java -m ModuleNameMain
-    Hello world! 8
-    ```
+```
+E:\codeRoom\java\javabase\proj4\myAppOne\bin>java -m ModuleNameMain
+Hello world! 8
+```
 
 
 [1]: https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/ThinkFromModuleUp.jpg
