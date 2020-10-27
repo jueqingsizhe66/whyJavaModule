@@ -9,6 +9,8 @@
 - [Proj4](#proj4)
 - [proj5](#proj5)
 
+
+![记录][1]
 <!-- markdown-toc end -->
 
 
@@ -42,12 +44,14 @@
 4. 打包jar
  
   4.1 编写manifest.mf
-    ```
-    Manifest-Version: 1.0
-    Class-Path: .
-    Main-Class: com.sum.App
-    Created-By: 14.0.2 (Oracle Corporation)
-    ```
+
+```
+Manifest-Version: 1.0
+Class-Path: .
+Main-Class: com.sum.App
+Created-By: 14.0.2 (Oracle Corporation)
+
+```
 
   4.2  创建可执行jar包
 
@@ -240,3 +244,6 @@ E:\codeRoom\java\javabase\proj5\targets\jars>jmod create  --class-path ModuleNam
     E:\codeRoom\java\javabase\proj4\myAppOne\bin>java -m ModuleNameMain
     Hello world! 8
     ```
+
+
+[1]: https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/ThinkFromModuleUp.jpg
