@@ -87,6 +87,16 @@ E:\codeRoom\java\javabase\proj4>javac -d targets/ModuleNameMain ModuleNameMain/m
 
 ```
 
+`com.sum`包也需要输出，这样可以直接访问App类， 包名字只有exports才能被外界访问
+<2020-10-28 00:36> 洗澡的时候想到，这是项目中黑色区域，经常会忘记，细节决定成败!
+```
+module ModuleNameMain
+{
+    exports com.sum;
+    requires ModuleNameAdd;
+}
+```
+
 - `-d`表示产生的targets文件夹 包含ModuleNameMain
 
 +  5.2 运行
