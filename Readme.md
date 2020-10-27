@@ -2,20 +2,44 @@
 
 从manifest.mf看到了包的一层,可以指定启动函数，从module.info看到了模块的一层(可见与不可见)，
 没有任何问题是加入一层无法解决的，如果还无法解决，接着加！
+
 从命令行的角度出发，加入一层，会使得你的options增加了几个，比如-d指定模块路径，跟随module-info.java文件等相关选项
 命令行就是流的思路(类似于Servlet控制层，夹带service函数，引入model层，service之后带入model的Dao层,实现CM控制
-流畅才能解决问题,慢慢来,会很快，在这之前，得多想; 这可以指代javac、java、jlink、jmod、目标、远景、领头人)
+流畅才能解决问题,慢慢来,会很快，在这之前，得多想; 这可以指代javac、jar、jmod、jlink、java、目标、愿景、领头人)
+
+参考[JAVAFX JRE模块环境搭建][2]
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
-- [-](#-)
+- [了解java模块定义和相互应用](#了解java模块定义和相互应用)
 - [Proj1](#proj1)
 - [Proj3](#proj3)
+    - [4. 打包jar](#4-打包jar)
+        - [4.1 编写manifest.mf](#41-编写manifestmf)
+        - [4.2  创建可执行jar包](#42--创建可执行jar包)
+        - [4.3 运行jar包](#43-运行jar包)
 - [Proj4](#proj4)
+    - [5. 引入了模块的概念](#5-引入了模块的概念)
+        - [5.1 编译](#51-编译)
+        - [5.2 运行](#52-运行)
+        - [5.3 模块打包](#53-模块打包)
+        - [5.4 运行打包后的模块](#54-运行打包后的模块)
+        - [5.5 创建一个可打包的JRE](#55-创建一个可打包的jre)
+            - [5.5.1 创建jmod文件](#551-创建jmod文件)
+            - [5.5.2 创建JRE文件夹](#552-创建jre文件夹)
 - [proj5](#proj5)
+    - [6. 多模块相互引用](#6-多模块相互引用)
+        - [6.1 `ModuleNameAdd module-info.java`加入`exports`](#61-modulenameadd-module-infojava加入exports)
+        - [6.2 `ModuleNameMain module-info.java`加入`requires`](#62-modulenamemain-module-infojava加入requires)
+        - [6.3 编译ModuleNameAdd模块](#63-编译modulenameadd模块)
+        - [6.4 编译moduleNameMain模块](#64-编译modulenamemain模块)
+        - [6.5 运行多模块的主程序](#65-运行多模块的主程序)
+        - [6.6 制作jmod文件(可以直接运行module)](#66-制作jmod文件可以直接运行module)
+            - [6.6.1 制作jar](#661-制作jar)
+            - [6.6.2 制作jmod](#662-制作jmod)
+            - [6.6.3 制作可运行的JRE](#663-制作可运行的jre)
+- [附录](#附录)
 
-
-![记录][1]
 <!-- markdown-toc end -->
 
 
@@ -303,3 +327,4 @@ javac编译，生产module(包含module-info.jar)或者非module的jar包(可能
   - `java --module-path targets -m ModuleNameMain/com.sum.App`  运行多模块的一种方式
 
 [1]: https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/ThinkFromModuleUp.jpg
+[2]: https://www.bilibili.com/video/BV1fA41147kZ?p=3&spm_id_from=pageDriver
