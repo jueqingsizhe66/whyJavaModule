@@ -11,6 +11,45 @@ E:\codeRoom\java\javabase\proj4>javac -d targets/ModuleNameMain ModuleNameMain/m
 
 ```
 
+注意必须先编译ModuleNameAdd, 因为它被ModuleNameMain需要，必须完全清楚依赖关系
+
+```
+E:\codeRoom\java\javabase\proj6>javac -d targets/Main1 ModuleNameMain/module-info.java ModuleNameMain/com/sum/*.java
+ModuleNameMain\module-info.java:4: 错误: 找不到模块: ModuleNameAdd
+    requires ModuleNameAdd;
+             ^
+1 个错误
+```
+
+按照上述模式编译ModuleNameMain还有问题
+
+```
+E:\codeRoom\java\javabase\proj6>javac -d targets/Main1 ModuleNameMain/module-info.java ModuleNameMain/com/sum/*.java
+ModuleNameMain\module-info.java:4: 错误: 找不到模块: ModuleNameAdd
+    requires ModuleNameAdd;
+             ^
+1 个错误
+
+```
+
+
+
+```
+E:\codeRoom\java\javabase\proj6>javac --module-path targets -d targets/ModueNameMain ModuleNameMain/module-info.java ModuleNameMain/com/sum/*.java
+
+```
+
+yes it works now!!
+
+```
+E:\codeRoom\java\javabase\proj6>java --module-path targets -m ModuleNameMain/com.sum.App
+Hello world! 8
+运行成功，注意到运行时候模块名字下面使用点号进行连接， 而在编译阶段，模块名字后面使用路径的形式，因为编译的是文件的形式
+```
+
+--------------------
+
+原因是没有指定 `--module-path targets` 把模块放在那里高速javac.exe，他才能知道去哪里找到模块内部的class文件！
 - -d表示产生的targets文件夹 包含ModuleNameMain
 
 5.2 运行
@@ -30,7 +69,10 @@ Hello world! 8
 
 ```
 E:\codeRoom\java\javabase\proj4>jar --create --file lib/ModuleNameMain.jar --main-class com.sum.App -C targets/ModuleNameMain .
+E:\codeRoom\java\javabase\proj4>jar --create --file lib/a.jar  -C targets/ModuleNameAdd .
 ```
+注意a.jar名字可以随便起，他只是把ModuleNameAdd的文件结构压缩起来，然后放在a.jar包中，只要他是放在lib文件夹下，都是可以访问的，
+jar包形式在同一个文件夹下是皇帝的新装，默认都是以模块形式存在(本质是模块起作用)
 
 注意了targets后面得加上模块名字，否则运行时候报错！
 

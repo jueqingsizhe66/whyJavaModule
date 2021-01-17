@@ -1,40 +1,3 @@
-1. 编译
-```
-E:\codeRoom\java\javabase\proj3>javac com/sum/*.java`
-```
-2. 运行
-```
-E:\codeRoom\java\javabase\proj3>java com.sum.App
-Hello world! 8
-
-```
-    `
-
-3. 加入了包的概念
-
-4. 打包jar
- 
-4.1 编写manifest.mf
-```
-Manifest-Version: 1.0
-Class-Path: .
-Main-Class: com.sum.App
-Created-By: 14.0.2 (Oracle Corporation)
-```
-4.2  创建可执行jar包
-```
-E:\codeRoom\java\javabase\proj3>jar cvfm hello.jar manifest.mf com/sum/App.class
-已添加清单
-正在添加: com/sum/App.class(输入 = 610) (输出 = 407)(压缩了 33%)
-
-```
-4.3 运行jar包
-```
-E:\codeRoom\java\javabase\proj3>java -jar hello.jar
-Hello world! 8
-```
-
-
 5. 引入了模块的概念
 
 在com.sum加入了一个上层文件夹ModuleNameMain
@@ -52,7 +15,6 @@ E:\codeRoom\java\javabase\proj4>javac -d targets/ModuleNameMain ModuleNameMain/m
 
 5.2 运行
 
-在这里还是得加入com.sum.App ,这里的概念和无模块其实是一样的， 可以把所有模块、包、无包、无模块当做同一平级， 最后你都需要把他们打包在一起，形成一个jar包，或者更比jar包更进一步jmod包
 ```
 E:\codeRoom\java\javabase\proj4>java --module-path targets -m ModuleNameMain/com.sum.App
 Hello world! 8
@@ -104,3 +66,46 @@ E:\codeRoom\java\javabase\proj4>jlink --module-path . --add-modules ModuleNameMa
 E:\codeRoom\java\javabase\proj4\myAppOne\bin>java -m ModuleNameMain
 Hello world! 8
 ```
+
+6. 多模块相互引用
+
+6.1 ModuleNameAdd module-info.java加入exports
+6.2 ModuleNameMain module-info.java加入requires
+6.3 编译ModuleNameAdd模块 
+    E:\codeRoom\java\javabase\proj5>javac -d targets/ModuleNameAdd ModuleNameAdd/module-info.java ModuleNameAdd/com/qny/*.java
+    
+6.4 编译moduleNameMain模块
+
+E:\codeRoom\java\javabase\proj5>javac --module-path targets -d targets/ModuleNameMain ModuleNameMain/module-info.java ModuleNameMain/com/sum/*.java
+
+注意增加--module-path 必须指定，虽然在ModuleNameMain中的module-info.java requires ModuleNameAdd;但是javac依然不知道module在哪里
+所以必须指定！
+
+6.5 运行多模块的主程序
+E:\codeRoom\java\javabase\proj5>java --module-path targets -m ModuleNameMain/com.sum.App
+Hello world! 8
+
+6.7 制作jmod文件(可以直接运行module)
+
+6.7.1 制作jar
+
+E:\codeRoom\java\javabase\proj5>jar --create --file targets/jars/ModuleNameAdd.jar -C targets/ModuleNameAdd .
+
+E:\codeRoom\java\javabase\proj5>jar --create --file targets/jars/ModuleNameMain.jar -C targets/ModuleNameMain .
+
+
+E:\codeRoom\java\javabase\proj5\targets\jars>jar tf ModuleNameAdd.jar
+META-INF/
+META-INF/MANIFEST.MF
+module-info.class
+com/
+com/qny/
+com/qny/Mytool.class
+
+6.7.2 制作jmod
+
+切换到6.7.1 jar生成的路径中!
+
+E:\codeRoom\java\javabase\proj5\targets\jars>jmod create  --class-path ModuleNameAdd.jar ModuleNameAdd.jmod
+
+E:\codeRoom\java\javabase\proj5\targets\jars>jmod create  --class-path ModuleNameMain.jar ModuleNameMain.jmod
