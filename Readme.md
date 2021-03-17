@@ -127,6 +127,12 @@ module ModuleNameMain
 ```
 
 - `-d`表示产生的targets文件夹 包含ModuleNameMain
+注意exports模块，才能让其他模块可见或者使用`-m`运行该模块(没加exports，相当于不可见！会出问题)
+注意: `com.sum`是模块名称？  `javafx.base`和 `javafx.controls`是模块名称
+文件夹`a.b`是可以创建的
+
+模块名底下有包和module-info.java, 包最底层是类文件！
+
 
 ####  5.2 运行
 
@@ -324,7 +330,13 @@ javac编译，生产module(包含module-info.jar)或者非module的jar包(可能
   - `--module-path`  模块所在文件夹
   - `-p` 指定jar包所在文件夹相对路径,jar包只是压缩文件，所以可能是module也可能不是
   - `-m`  指定需要运行模块
-  - `java --module-path targets -m ModuleNameMain/com.sum.App`  运行多模块的一种方式
+  - `java --module-path targets -m ModuleNameMain/com.sum.App`  运行多模块的一种方式, 运行的时候都得用`包名+类名`的形式写法，即`ModuleNameMain`是模块包名字、`com.sum.App`是类名字
+  
+`(java -m 
+    (jlink --module-path --add-modules --output 
+        (jmod  create --class-path 
+            (jar  --create --file  -C 
+                (javac --module-path ? -d ?  *.java)))))`
 
 [1]: https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/ThinkFromModuleUp.jpg
 [2]: https://www.bilibili.com/video/BV1fA41147kZ?p=3&spm_id_from=pageDriver
