@@ -1,5 +1,69 @@
 ## 了解java模块定义和相互应用
 
+### 简介
+通过java去认识模块化编程的意义； 
+1. 我们有一堆java文件，扁平化管理，直接`javac *.java` ,然后对主文件进行`java`即可完成运行
+*存在的问题，不好进行拓展，也不好管理*
+2. 为了解决管理的问题，我们在项目名下面，引入了包机制,我们把所有的`*.java`文件都放在`com.sun`底下
+然后我们再次`javac com/sun/*.java`, 然后运行`java com.sun.Main`, 前提我们的java文件头部得包含
+`Package com.sun` ; 
+*我们解决了什么问题？ 没有！*
+我们只是引入了一个包机制。但是不代表没用，也就是说我们可以把com/sun解析成com.sun类， 在这一步做了一次具备重要意义的概念引入
+`全路径类名`, 也就是我们的Main类，Button类,People类不在没有类路径了，他们都在com.sun底下。
+
+**全路径类**
+    在编译后，让一个java文件的文件路径识别为一个java的可查找全路径类名,全路径类以点号划分，每一个点号代表未编译时候的一层文件夹名字。
+
+这里要区分全路径类和包路径的区别，一般包路径指代编译前的文件夹路径(javac运行)，全路径类表示类的点路径(java或者javaw运行)
+
+3. 有了全路径类的概念，我们进一步形成可执行jar包
+我们添加了manifest.mf文件，然后编写我们的主类。 然后运行我们的jar包
+
+4. 包机制并没有给项目的模块化带来根本性改变，为此我们引入了module.java, 我们在项目名(project)和包名(com/sun) --全称project/com/sun引入模块名字，比如ModuleNameMain，并在ModuleNameMain引入module.java文件，指定requires 和exports
+
+- exports管编译，通常是工具类和可运行类的文件夹
+    表示允许在编译时和运行时访问指定包的public成员
+- opens管运行!(如果运行需要也得opens,通常指可运行类 App或者Main类所在文件夹)
+    用于声明该模块的指定包在runtime允许使用反射访问
+    主要用于解决deep reflection问题，open的作用是表示该模块下的所有的包在runtime都允许deep reflection(包括public及private类型)
+
+[详见opens和exports区别介绍][3]
+
+于是我们通过java的-d选项指定模块输出路径和模块名字(比如modules/ModuleNameMain, 输出路径文当前文件夹下的modules文件夹，ModuleNameMain为模块名字)，并带上module.java文件，以及ModuleNameMain/com/sun/*.java 该模块所在包路径下的所有java文件
+
+然后我们就可以通过java --module-path 指定modules文件夹（表示在modules文件夹下寻找模块信息）,指定-m ModuleNameMain/com.sun.Main
+来运行对应模块的全路径类！！！ *注意* _全路径类_
+
+5. 进一步我们又加入了新的module，于是我们编写了module.java文件，增加了exports（不需要opens，因为不需要运行它,所以opens用的几率较少？）,增加了requires文件；紧接着，我们建立了包路径，`com.button`,再把相关类放在其中，然后接着跑一遍`javac`, `javac -d modules/ModuleNameButton ModuleNameButton/module.java ModuleNameMain/com/button/*.java`
+然后因为我们的ModuleNameMain需要用到ModuleNameMain, 于是我们需要在ModuleNameMain中的module.java增加`requires ModuleNameButton`
+
+那么，我们在编译ModuleNameMain模块的时候，就需要`javac --module-path modules -d modules/ModuleNameMain ModuleNameMain/module.java ModuleNameMain/com/sun/*.java` 完成ModuleNameMain的编译
+
+那么，如何运行？
+`java --module-path modules ModuleNameMain/com.sun/Main`
+
+6. 那如何再次基础上进一步封装你的模块到JRC中？ 拷给别人后直接运行模块即可！
+注意这一步我们只管把jar包做变换，jar变jmod，jmod变成jre项目即可
+那就得调用jmod和jlink，在这之前还得先创建jar包(用jar工具,注意这次不是使用jar cvfm 创建jar包)
+
+`jar --create --file ModuleNameButton.jar -C modules/ModuleNameButton . `
+`jar --create --file ModuleNameMain.jar -C modules/ModuleNameMain . `
+
+然后使用jmod
+`
+jmod create --class-path ModuleNameButton.jar ModuleNameButton.jmod
+jmod create --class-path ModuleNameMain.jar ModuleNameMain.jmod
+`
+
+`
+jlink --module-path jmodfile(把jmod文件都放在jmodfile目录下)  --add-modules ModuleNameButton,ModuleNameMain,java.base --output  myapp
+`
+
+ya!到此为此，你就玩high了,也明白了java的编译阶段的包路径、运行阶段全路径类、多模块编程、命令行编译，JRE包的生成！
+<2021-06-22 22:43>
+
+----------------------------------------------------------
+
 从manifest.mf看到了包的一层,可以指定启动函数，从module.info看到了模块的一层(可见与不可见)，
 没有任何问题是加入一层无法解决的，如果还无法解决，接着加！
 
@@ -55,12 +119,14 @@
 
 1. 编译
 
+*包路径*，*包机制*
 ```
 E:\codeRoom\java\javabase\proj3>javac com/sum/*.java`
 ```
 
 2. 运行
 
+*全路径类*
 ```
 E:\codeRoom\java\javabase\proj3>java com.sum.App
 Hello world! 8
@@ -74,6 +140,9 @@ Hello world! 8
 ### 4. 打包jar
  
 ####  4.1 编写manifest.mf
+
+主类、运行类指定
+注意看jdk版本，是14.0.2？
 
 ```
 Manifest-Version: 1.0
@@ -116,7 +185,7 @@ E:\codeRoom\java\javabase\proj4>javac -d targets/ModuleNameMain ModuleNameMain/m
 
 ```
 
-`com.sum`包也需要输出，这样可以直接访问App类， 包名字只有exports才能被外界访问
+`com.sum`包也需要输出，这样可以直接访问App类， 包名字只有exports才能被外界访问(exports还得和opens区分开)
 <2020-10-28 00:36> 洗澡的时候想到，这是项目中黑色区域，经常会忘记，细节决定成败!
 ```
 module ModuleNameMain
@@ -340,3 +409,4 @@ javac编译，生产module(包含module-info.jar)或者非module的jar包(可能
 
 [1]: https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/ThinkFromModuleUp.jpg
 [2]: https://www.bilibili.com/video/BV1fA41147kZ?p=3&spm_id_from=pageDriver
+[3]: https://segmentfault.com/a/1190000013409571

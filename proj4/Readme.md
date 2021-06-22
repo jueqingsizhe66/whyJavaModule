@@ -22,6 +22,8 @@ Main-Class: com.sum.App
 Created-By: 14.0.2 (Oracle Corporation)
 ```
 4.2  创建可执行jar包
+最后一个参数指定了class类
+
 ```
 E:\codeRoom\java\javabase\proj3>jar cvfm hello.jar manifest.mf com/sum/App.class
 已添加清单
