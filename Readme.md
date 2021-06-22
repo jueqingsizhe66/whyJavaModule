@@ -1,5 +1,40 @@
 ## 了解java模块定义和相互应用
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [了解java模块定义和相互应用](#了解java模块定义和相互应用)
+    - [简介](#简介)
+- [Proj1](#proj1)
+- [Proj3](#proj3)
+    - [4. 打包jar](#4-打包jar)
+        - [4.1 编写manifest.mf](#41-编写manifestmf)
+        - [4.2  创建可执行jar包](#42--创建可执行jar包)
+        - [4.3 运行jar包](#43-运行jar包)
+- [Proj4](#proj4)
+    - [5. 引入了模块的概念](#5-引入了模块的概念)
+        - [5.1 编译](#51-编译)
+        - [5.2 运行](#52-运行)
+        - [5.3 模块打包](#53-模块打包)
+        - [5.4 运行打包后的模块](#54-运行打包后的模块)
+        - [5.5 创建一个可打包的JRE](#55-创建一个可打包的jre)
+            - [5.5.1 创建jmod文件](#551-创建jmod文件)
+            - [5.5.2 创建JRE文件夹](#552-创建jre文件夹)
+- [proj5](#proj5)
+    - [6. 多模块相互引用](#6-多模块相互引用)
+        - [6.1 `ModuleNameAdd module-info.java`加入`exports`](#61-modulenameadd-module-infojava加入exports)
+        - [6.2 `ModuleNameMain module-info.java`加入`requires`](#62-modulenamemain-module-infojava加入requires)
+        - [6.3 编译ModuleNameAdd模块](#63-编译modulenameadd模块)
+        - [6.4 编译moduleNameMain模块](#64-编译modulenamemain模块)
+        - [6.5 运行多模块的主程序](#65-运行多模块的主程序)
+        - [6.6 制作jmod文件(可以直接运行module)](#66-制作jmod文件可以直接运行module)
+            - [6.6.1 制作jar](#661-制作jar)
+            - [6.6.2 制作jmod](#662-制作jmod)
+            - [6.6.3 制作可运行的JRE](#663-制作可运行的jre)
+- [附录](#附录)
+
+<!-- markdown-toc end -->
+
 ### 简介
 通过java去认识模块化编程的意义； 
 1. 我们有一堆java文件，扁平化管理，直接`javac *.java` ,然后对主文件进行`java`即可完成运行
@@ -13,6 +48,7 @@
 
 **全路径类**
     在编译后，让一个java文件的文件路径识别为一个java的可查找全路径类名,全路径类以点号划分，每一个点号代表未编译时候的一层文件夹名字。
+    <2021-06-27 21:49>再次学习该全路径类的概念！温固java编译和运行发生的事情，编译涉及的是包路径，运行涉及的是全路径类
 
 这里要区分全路径类和包路径的区别，一般包路径指代编译前的文件夹路径(javac运行)，全路径类表示类的点路径(java或者javaw运行)
 
@@ -72,40 +108,6 @@ ya!到此为此，你就玩high了,也明白了java的编译阶段的包路径�
 流畅才能解决问题,慢慢来,会很快，在这之前，得多想; 这可以指代javac、jar、jmod、jlink、java、目标、愿景、领头人)
 
 参考[JAVAFX JRE模块环境搭建][2]
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-**Table of Contents**
-
-- [了解java模块定义和相互应用](#了解java模块定义和相互应用)
-- [Proj1](#proj1)
-- [Proj3](#proj3)
-    - [4. 打包jar](#4-打包jar)
-        - [4.1 编写manifest.mf](#41-编写manifestmf)
-        - [4.2  创建可执行jar包](#42--创建可执行jar包)
-        - [4.3 运行jar包](#43-运行jar包)
-- [Proj4](#proj4)
-    - [5. 引入了模块的概念](#5-引入了模块的概念)
-        - [5.1 编译](#51-编译)
-        - [5.2 运行](#52-运行)
-        - [5.3 模块打包](#53-模块打包)
-        - [5.4 运行打包后的模块](#54-运行打包后的模块)
-        - [5.5 创建一个可打包的JRE](#55-创建一个可打包的jre)
-            - [5.5.1 创建jmod文件](#551-创建jmod文件)
-            - [5.5.2 创建JRE文件夹](#552-创建jre文件夹)
-- [proj5](#proj5)
-    - [6. 多模块相互引用](#6-多模块相互引用)
-        - [6.1 `ModuleNameAdd module-info.java`加入`exports`](#61-modulenameadd-module-infojava加入exports)
-        - [6.2 `ModuleNameMain module-info.java`加入`requires`](#62-modulenamemain-module-infojava加入requires)
-        - [6.3 编译ModuleNameAdd模块](#63-编译modulenameadd模块)
-        - [6.4 编译moduleNameMain模块](#64-编译modulenamemain模块)
-        - [6.5 运行多模块的主程序](#65-运行多模块的主程序)
-        - [6.6 制作jmod文件(可以直接运行module)](#66-制作jmod文件可以直接运行module)
-            - [6.6.1 制作jar](#661-制作jar)
-            - [6.6.2 制作jmod](#662-制作jmod)
-            - [6.6.3 制作可运行的JRE](#663-制作可运行的jre)
-- [附录](#附录)
-
-<!-- markdown-toc end -->
-
 
 1. Proj1   只是一个main函数
 2. Proj2   加入了Mytool类 引用add函数
