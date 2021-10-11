@@ -47,6 +47,8 @@
 `全路径类名`, 也就是我们的Main类，Button类,People类不在没有类路径了，他们都在com.sun底下。
 
 **全路径类**
+他是什么？ 为什么要引入全路径类？ 什么时候会出现全路径类的概念，它的使用场景是什么？  <2021-10-11 23:27> 
+
     在编译后，让一个java文件的文件路径识别为一个java的可查找全路径类名,全路径类以点号划分，每一个点号代表未编译时候的一层文件夹名字。
     <2021-06-27 21:49>再次学习该全路径类的概念！温固java编译和运行发生的事情，编译涉及的是包路径，运行涉及的是全路径类
 
@@ -69,6 +71,11 @@
 
 然后我们就可以通过java --module-path 指定modules文件夹（表示在modules文件夹下寻找模块信息）,指定-m ModuleNameMain/com.sun.Main
 来运行对应模块的全路径类！！！ *注意* _全路径类_
+<2021-10-11 23:24>  在项目文件夹和包文件夹中间加入一个层级，模块文件夹， 这样顺序是  项目名字目录--> 模块名字目录--> 包名字目录
+每个模块名字目录下都有一个module-info.java文件
+模块文件夹内的所有包路径在exports 模块后，均可被引入(import)!
+
+[模块的引入][4]
 
 5. 进一步我们又加入了新的module，于是我们编写了module.java文件，增加了exports（不需要opens，因为不需要运行它,所以opens用的几率较少？）,增加了requires文件；紧接着，我们建立了包路径，`com.button`,再把相关类放在其中，然后接着跑一遍`javac`, `javac -d modules/ModuleNameButton ModuleNameButton/module.java ModuleNameMain/com/button/*.java`
 然后因为我们的ModuleNameMain需要用到ModuleNameMain, 于是我们需要在ModuleNameMain中的module.java增加`requires ModuleNameButton`
@@ -115,8 +122,6 @@ ya!到此为此，你就玩high了,也明白了java的编译阶段的包路径�
 4. Proj4   引入了模块的概念, 打包模块，打包JRE
 5. Proj5   Proj1~4都是单模块的概念，在此步骤引入引入多模块相互引用
 
-
-
 ## Proj1 
 
 1. 编译
@@ -135,7 +140,7 @@ Hello world! 8
 
 ```
 
-## Proj3
+## Proj2
 
 3. 加入了包的概念
 
@@ -412,3 +417,4 @@ javac编译，生产module(包含module-info.jar)或者非module的jar包(可能
 [1]: https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/ThinkFromModuleUp.jpg
 [2]: https://www.bilibili.com/video/BV1fA41147kZ?p=3&spm_id_from=pageDriver
 [3]: https://segmentfault.com/a/1190000013409571
+[4]:https://www.bilibili.com/video/BV1fA41147kZ?p=5 
