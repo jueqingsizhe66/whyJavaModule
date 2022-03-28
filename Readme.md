@@ -98,6 +98,8 @@
 
 那么，我们在编译ModuleNameMain模块的时候，就需要`javac --module-path modules -d modules/ModuleNameMain ModuleNameMain/module.java ModuleNameMain/com/sun/*.java` 完成ModuleNameMain的编译
 
+![GameFifth][11]
+
 那么，如何运行？
 `java --module-path modules ModuleNameMain/com.sun/Main`
 
@@ -441,3 +443,4 @@ javac编译，生产module(包含module-info.jar)或者非module的jar包(可能
 [8]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameSecond.png 
 [9]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameThird.png 
 [10]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameFourth.png 
+[11]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameFifth.png 
