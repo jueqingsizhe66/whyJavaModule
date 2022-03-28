@@ -45,11 +45,13 @@
 ![gamefirst][6]
 
 ![gameFirstMain][7]
+
 2. 为了解决管理的问题，我们在项目名下面，引入了包机制,我们把所有的`*.java`文件都放在`com.sun`底下
 然后我们再次`javac com/sun/*.java`, 然后运行`java com.sun.Main`, 前提我们的java文件头部得包含
 `Package com.sun` ; 
 
 ![gameSecond][8]
+
 *我们解决了什么问题？ 没有！*
 我们只是引入了一个包机制。但是不代表没用，也就是说我们可以把com/sun解析成com.sun类， 在这一步做了一次具备重要意义的概念引入
 `全路径类名`, 也就是我们的Main类，Button类,People类不在没有类路径了，他们都在com.sun底下。
@@ -185,6 +187,7 @@ E:\codeRoom\java\javabase\proj3>java -jar hello.jar
 Hello world! 8
 ```
 
+![GameThird][9]
 ## Proj4
 
 ### 5. 引入了模块的概念
@@ -430,3 +433,4 @@ javac编译，生产module(包含module-info.jar)或者非module的jar包(可能
 [6]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameFirst.png 
 [7]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameFirstMain.png 
 [8]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameSecond.png 
+[8]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameThird.png 
