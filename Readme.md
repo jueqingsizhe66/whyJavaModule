@@ -76,6 +76,7 @@
 - opens管运行!(如果运行需要也得opens,通常指可运行类 App或者Main类所在文件夹)
     用于声明该模块的指定包在runtime允许使用反射访问
     主要用于解决deep reflection问题，open的作用是表示该模块下的所有的包在runtime都允许deep reflection(包括public及private类型)
+- 
 
 [详见opens和exports区别介绍][3]
 
@@ -86,6 +87,9 @@
 <2021-10-11 23:24>  在项目文件夹和包文件夹中间加入一个层级，模块文件夹， 这样顺序是  项目名字目录--> 模块名字目录--> 包名字目录
 每个模块名字目录下都有一个module-info.java文件
 模块文件夹内的所有包路径在exports 模块后，均可被引入(import)!
+
+
+![Gamefourth][10]
 
 [模块的引入][4]
 
@@ -435,4 +439,5 @@ javac编译，生产module(包含module-info.jar)或者非module的jar包(可能
 [6]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameFirst.png 
 [7]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameFirstMain.png 
 [8]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameSecond.png 
-[8]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameThird.png 
+[9]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameThird.png 
+[10]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameFourth.png 
