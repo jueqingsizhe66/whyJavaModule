@@ -131,6 +131,14 @@ jlink --module-path jmodfile(把jmod文件都放在jmodfile目录下)  --add-mod
 
 ![GameSixth][12]
 
+Take care for running multiple module projects:
+
+```java
+E:\codeRoom\java\javabase\proj5>java --module-path targets -m ModuleNameMain/com.sum.App
+Hello world! 8
+
+```
+
 ya!到此为此，你就玩high了,也明白了java的编译阶段的包路径、运行阶段全路径类、多模块编程、命令行编译，JRE包的生成！
 <2021-06-22 22:43>
 
