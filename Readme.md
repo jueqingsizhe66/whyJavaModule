@@ -452,15 +452,18 @@ javac编译，生产module(包含module-info.jar)或者非module的jar包(可能
             (jar  --create --file  -C 
                 (javac --module-path ? -d ?  *.java)))))`
 
+![ThinkFromBottomUp][1]
+
+
 [1]: https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/ThinkFromModuleUp.jpg
 [2]: https://www.bilibili.com/video/BV1fA41147kZ?p=3&spm_id_from=pageDriver
 [3]: https://segmentfault.com/a/1190000013409571
 [4]:https://www.bilibili.com/video/BV1fA41147kZ?p=5 
-[5]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/onegame.png 
-[6]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameFirst.png 
-[7]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameFirstMain.png 
-[8]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameSecond.png 
-[9]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameThird.png 
-[10]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameFourth.png 
-[11]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameFifth.png 
-[12]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameSixth.png 
+[5]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/onegame.png 
+[6]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/gameFirst.png 
+[7]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/gameFirstMain.png 
+[8]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/gameSecond.png 
+[9]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/gameThird.png 
+[10]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/gameFourth.png 
+[11]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/gameFifth.png 
+[12]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/gameSixth.png 
