@@ -67,6 +67,8 @@
 3. 有了全路径类的概念，我们进一步形成可执行jar包
 我们添加了manifest.mf文件，然后编写我们的主类。 然后运行我们的jar包
 
+![GameThird][9]
+
 4. 包机制并没有给项目的模块化带来根本性改变，为此我们引入了module.java, 我们在项目名(project)和包名(com/sun) --全称project/com/sun引入模块名字，比如ModuleNameMain，并在ModuleNameMain引入module.java文件，指定requires 和exports
 
 - exports管编译，通常是工具类和可运行类的文件夹
@@ -187,7 +189,7 @@ E:\codeRoom\java\javabase\proj3>java -jar hello.jar
 Hello world! 8
 ```
 
-![GameThird][9]
+
 ## Proj4
 
 ### 5. 引入了模块的概念
