@@ -35,7 +35,7 @@
 
 <!-- markdown-toc end -->
 
-<center>![one programe game][5] </center>
+<div align=center> ![one programe game][5] 
 
 ### 简介
 
@@ -43,7 +43,7 @@
 1. 我们有一堆java文件，扁平化管理，直接`javac *.java` ,然后对主文件进行`java`即可完成运行
 *存在的问题，不好进行拓展，也不好管理*
 
-![gamefirst][6]
+ <div align=center>![gamefirst][6]
 
 2. 为了解决管理的问题，我们在项目名下面，引入了包机制,我们把所有的`*.java`文件都放在`com.sun`底下
 然后我们再次`javac com/sun/*.java`, 然后运行`java com.sun.Main`, 前提我们的java文件头部得包含
