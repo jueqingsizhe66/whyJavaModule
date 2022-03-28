@@ -107,18 +107,29 @@
 注意这一步我们只管把jar包做变换，jar变jmod，jmod变成jre项目即可
 那就得调用jmod和jlink，在这之前还得先创建jar包(用jar工具,注意这次不是使用jar cvfm 创建jar包)
 
-`jar --create --file ModuleNameButton.jar -C modules/ModuleNameButton . `
-`jar --create --file ModuleNameMain.jar -C modules/ModuleNameMain . `
+```java
+
+jar --create --file ModuleNameButton.jar -C modules/ModuleNameButton . 
+jar --create --file ModuleNameMain.jar -C modules/ModuleNameMain . 
+
+```
+
 
 然后使用jmod
-`
+```java
 jmod create --class-path ModuleNameButton.jar ModuleNameButton.jmod
-jmod create --class-path ModuleNameMain.jar ModuleNameMain.jmod
-`
 
-`
+jmod create --class-path ModuleNameMain.jar ModuleNameMain.jmod
+```
+
+
+```java
+
 jlink --module-path jmodfile(把jmod文件都放在jmodfile目录下)  --add-modules ModuleNameButton,ModuleNameMain,java.base --output  myapp
-`
+
+```
+
+![GameSixth][12]
 
 ya!到此为此，你就玩high了,也明白了java的编译阶段的包路径、运行阶段全路径类、多模块编程、命令行编译，JRE包的生成！
 <2021-06-22 22:43>
@@ -444,3 +455,4 @@ javac编译，生产module(包含module-info.jar)或者非module的jar包(可能
 [9]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameThird.png 
 [10]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameFourth.png 
 [11]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameFifth.png 
+[12]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/gameSixth.png 
