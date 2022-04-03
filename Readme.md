@@ -414,6 +414,18 @@ Hello world! 8
 javac编译，java运行(编译运行)
 javac编译，生产module(包含module-info.jar)或者非module的jar包(可能包含)，进一步导出jmod，jlink所有jmod行成一个jre，java运行(编译运行)
 
+![类似的效果][13]
+
+```java
+在 jdk9 之后，如果出现序列化权限问题。可添加jvm参数： --add-opens java.base/java.lang=ALL-UNNAMED
+或
+--illegal-access=permit
+示例： java --add-opens java.base/java.lang=ALL-UNNAMED -jar xxx.jar
+
+增加 jvm 参数，应该就可以了：
+--add-opens java.base/java.lang=ALL-UNNAMED
+```
+
 
 - javac.exe(根据java后缀文件生成class文件 或者模块的class路径,即module文件夹)
   - `--module-path`  编译后模块所在文件夹
@@ -467,3 +479,4 @@ javac编译，生产module(包含module-info.jar)或者非module的jar包(可能
 [10]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/gameFourth.png 
 [11]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/gameFifth.png 
 [12]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/gameSixth.png 
+[13]:https://github.com/jueqingsizhe66/whyJavaModule/blob/develop/image/javaJDKRUN.jpg 
